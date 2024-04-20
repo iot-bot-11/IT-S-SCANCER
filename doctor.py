@@ -21,6 +21,8 @@ def get_gemini_response(input_text, image, input_prompt):
 
 def app():
     from PIL import Image
+    st.set_page_config(page_title="IT'S-MED.Ai")
+
 
 # Load the image
     image = Image.open('scancerlogo.png')
@@ -32,13 +34,13 @@ def app():
     with col2:
         st.title('SCANCER')
 
+        st.sidebar.markdown("## SCANCER")
+    st.sidebar.markdown("Are you a doctor?")
+    st.sidebar.button("Login", key="login_button", help="Click here to login")
+
 
      
-    # Top bar with app name and login options
-    st.sidebar.header('SCANCER')
-
-    st.sidebar.text('Are you a doctor?')
-    st.sidebar.button('Login')
+    
 
     # Main content
     st.header('How are you feeling today?')
