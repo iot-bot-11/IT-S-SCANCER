@@ -12,7 +12,7 @@ genai.configure(api_key=API_KEY)
 
 # Function to load OpenAI model and get responses
 def get_gemini_response(input_text, image, input_prompt):
-    model = genai.GenerativeModel('gemini-pro-vision')
+    model = genai.GenerativeModel('gemini-1.5-pro-latest')
     if input_text != "":
         response = model.generate_content([input_text, image, input_prompt])
     else:
@@ -32,10 +32,7 @@ def login_section():
         login_button = st.button("Login")
         
 
-    with col2:
-        # Logo (replace with path to your logo)
-        # st.image("path/to/your/logo.png", width=150)
-        pass
+    
 
     # Login Functionality
     if login_button:
@@ -61,15 +58,27 @@ with col1:
 
 st.sidebar.markdown("## SCANCER")
 st.sidebar.markdown("Are you a doctor?")
-doctor_option = st.sidebar.radio("Select", ("Yes", "No"))
+doctor_option = st.sidebar.radio("Select", ("Yes", "No","Register"))
 
 # If user is a doctor, display the login section
 if doctor_option == "Yes":
     login_section()
 
+
+
+if doctor_option == "Register":
+    from im import ver
+    ver()
+
 # If user is not a doctor or chooses not to login, display the main content
 if doctor_option == "No" or ('login_clicked' in st.session_state and st.session_state.login_clicked):
     st.header('How are you feeling today?')
+
+
+
+
+
+
 
     # Input prompt
     query = st.text_input("Enter additional information/queries", "Eg: Am I pregnant?")
@@ -84,9 +93,8 @@ if doctor_option == "No" or ('login_clicked' in st.session_state and st.session_
     # Button to generate response
     submit_button = st.button("Tell me about my condition")
 
-    input_prompt = """your task is to review the provided image.If the image related to medical field 
-    Please share your professional evaluation, else the image not related to the medical field say this is not my job.
-    """
+    input_prompt = """Please evaluate the provided image. If it pertains to the medical field, kindly share your professional assessment.
+      Otherwise, respond with 'This is not within my expertise.' Thank you!"""
 
     # If button is clicked
     if submit_button:
