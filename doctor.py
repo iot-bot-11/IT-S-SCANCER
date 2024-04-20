@@ -67,7 +67,7 @@ if doctor_option == "Yes":
 
 
 if doctor_option == "Register":
-    from im import ver
+    from verification import ver
     ver()
 
 # If user is not a doctor or chooses not to login, display the main content
