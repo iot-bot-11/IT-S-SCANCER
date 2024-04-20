@@ -18,31 +18,57 @@ def get_gemini_response(input_text, image, input_prompt):
     else:
         response = model.generate_content([image, input_prompt])
     return response.text
+def check_credentials(username, password):
+    # Replace this with your actual credential checking logic
+    return username == "admin" and password == "secret"
 
-def app():
-    from PIL import Image
-    st.set_page_config(page_title="IT'S-MED.Ai")
-
-
-# Load the image
-    image = Image.open('scancerlogo.png')
-    image_resized = image.resize((100, 100))
-    col1, col2 = st.columns([1, 3])
+def login_section():
+    # Login Section
+    col1, col2 = st.columns(2)
     with col1:
-        st.image(image_resized)
+        st.subheader("Login")
+        username = st.text_input("Username")
+        password = st.text_input("Password", type="password")
+        login_button = st.button("Login")
+        
+
+    with col2:
+        # Logo (replace with path to your logo)
+        # st.image("path/to/your/logo.png", width=150)
+        pass
+
+    # Login Functionality
+    if login_button:
+        if check_credentials(username, password):
+            st.success("Login successful!")
+            # Display functionalities or information after successful login
+            st.subheader("Welcome, Admin!")
+            # Add functionalities accessible only after login (e.g., user management, data visualization)
+        else:
+            st.error("Invalid username or password!")
+
+# Main content
+st.set_page_config(page_title="IT'S-MED.Ai")
+# Load the image
+image = Image.open('scancerlogo.png')
+image_resized = image.resize((100, 100))
+col1, col2 = st.columns([1, 3])
+with col1:
+    st.image(image_resized)
 
     with col2:
         st.title('SCANCER')
 
-        st.sidebar.markdown("## SCANCER")
-    st.sidebar.markdown("Are you a doctor?")
-    st.sidebar.button("Login", key="login_button", help="Click here to login")
+st.sidebar.markdown("## SCANCER")
+st.sidebar.markdown("Are you a doctor?")
+doctor_option = st.sidebar.radio("Select", ("Yes", "No"))
 
+# If user is a doctor, display the login section
+if doctor_option == "Yes":
+    login_section()
 
-     
-    
-
-    # Main content
+# If user is not a doctor or chooses not to login, display the main content
+if doctor_option == "No" or ('login_clicked' in st.session_state and st.session_state.login_clicked):
     st.header('How are you feeling today?')
 
     # Input prompt
@@ -59,7 +85,7 @@ def app():
     submit_button = st.button("Tell me about my condition")
 
     input_prompt = """your task is to review the provided image.If the image related to medical field 
-    Please share your professional evaluation ,else the image not related to medical field say this is not my job.
+    Please share your professional evaluation, else the image not related to the medical field say this is not my job.
     """
 
     # If button is clicked
@@ -70,6 +96,3 @@ def app():
             st.warning(response)
         else:
             st.warning("Please upload an image before generating response.")
-
-# Run the app
-app()
