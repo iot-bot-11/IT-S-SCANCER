@@ -22,8 +22,8 @@ def ver():
 
     # Input prompt
     name = st.text_input("Username")
-    password = st.text_input("Password", type="password")
-    password1 = st.text_input("Confirm Password")
+    password = st.text_input("Password", key="password")
+    password1 = st.text_input("Confirm Password",key="pass")
 
     # File upload
     uploaded_file = st.file_uploader("Choose an image...", type=["jpg", "jpeg", "png"])
