@@ -34,8 +34,7 @@ def ver():
 
     # Button to generate response
     submit_button = st.button("VERIFY NOW")
-    input_prompt1 = """hello, your task is to review the provided image.If the image is doctor's certificate respond as , the account available soon ,
-    else say recheck your certificate.
+    input_prompt1 = """Hello! Please evaluate the provided image. If it's a doctor's certificate, respond with 'The account will be available soon.' If not, kindly advise 'Please recheck your certificate.' Thank you!.
     """
 
     # If button is clicked
