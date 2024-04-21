@@ -37,10 +37,11 @@ def login_section():
     # Login Functionality
     if login_button:
         if check_credentials(username, password):
-            st.success("Login successful!")
+            st.success("LOADING..............")
             # Display functionalities or information after successful login
             st.subheader("Welcome, Admin!")
             # Add functionalities accessible only after login (e.g., user management, data visualization)
+            st.markdown("[LET'S START](https://backup-74.streamlit.app/)")
         else:
             st.error("Invalid username or password!")
 
